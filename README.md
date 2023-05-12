@@ -20,8 +20,8 @@ Apply Feature selection techniques to all the features of the data set
 Save the data to the file
 ## CODE-Done for "titanic_dataset.csv"
 ```python
-Developed By: HARITHASHREE.V
-Reg.No: 212222230046
+Developed By: M Nikhil
+Reg.No: 212222230095
 
 #loading dataset
 import pandas as pd
@@ -30,11 +30,11 @@ import matplotlib.pyplot as plt
 df=pd.read_csv("titanic_dataset.csv")
 df
 
-#checking data
+# checking data
 df.isnull().sum()
 
 
-#removing unnecessary data variables
+# removing unnecessary data variables
 df.drop('Cabin',axis=1,inplace=True)
 df.drop('Name',axis=1,inplace=True)
 df.drop('Ticket',axis=1,inplace=True)
@@ -47,7 +47,7 @@ df.isnull().sum()
 
 
 
-#removing outliers 
+# removing outliers 
 plt.title("Dataset with outliers")
 df.boxplot()
 plt.show()
@@ -62,7 +62,7 @@ df.boxplot()
 plt.show()
 
 
-#feature encoding 
+# feature encoding 
 from sklearn.preprocessing import OrdinalEncoder
 embark=["C","S","Q"]
 emb=OrdinalEncoder(categories=[embark])
@@ -74,7 +74,7 @@ df["Sex"]=be.fit_transform(df[["Sex"]])
 df
 
 
-#feature scaling
+# feature scaling
 from sklearn.preprocessing import RobustScaler
 sc=RobustScaler()
 df2=pd.DataFrame(sc.fit_transform(df),columns=['Survived','Pclass','Sex','Age','SibSp','Fare','Embarked'])
@@ -104,7 +104,7 @@ df1["Embarked"]=df2["Embarked"]
 df1.skew()
 
 
-#feature selection process
+# feature selection process
 import matplotlib
 import seaborn as sns
 import statsmodels.api as sm
@@ -131,7 +131,7 @@ model = sm.OLS(y,X_1).fit()
 model.pvalues
 
 
-#Backward Elimination
+# Backward Elimination
 cols = list(X.columns)
 pmax = 1
 while (len(cols)>0):
@@ -150,9 +150,9 @@ selected_features_BE = cols
 print(selected_features_BE)
 
 model = LinearRegression()
-#Initializing RFE model
+# Initializing RFE model
 rfe = RFE(model, 4)
-#Transforming data using RFE
+# Transforming data using RFE
 X_rfe = rfe.fit_transform(X,y)  
 #Fitting the data to model
 model.fit(X_rfe,y)
@@ -189,7 +189,7 @@ print(selected_features_rfe)
 
 
 
-#Embedded Method
+# Embedded Method
 reg = LassoCV()
 reg.fit(X, y)
 print("Best alpha using built-in LassoCV: %f" % reg.alpha_)
